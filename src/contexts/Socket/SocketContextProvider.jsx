@@ -7,8 +7,10 @@ export const useSocket = () => {
   return useContext(SocketContext);
 };
 
-const SocketContextProvider = ({ children } ) => {
-  const socket = useMemo(() => io("http://localhost:3000"), []);
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
+const SocketContextProvider = ({ children }) => {
+  const socket = useMemo(() => io(baseUrl), []);
   return (
     <SocketContext.Provider value={{ socket }}>
       {children}
@@ -19,7 +21,5 @@ const SocketContextProvider = ({ children } ) => {
 SocketContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-
 
 export default SocketContextProvider;
